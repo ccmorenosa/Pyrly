@@ -1,6 +1,6 @@
 """Main file of the Python hourly stopwatch."""
-from stopwatch import Stopwatch
-from work_history import History
+from .stopwatch import Stopwatch
+from .work_history import History
 
 import re
 from pathlib import Path
