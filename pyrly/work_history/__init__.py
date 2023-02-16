@@ -2,6 +2,7 @@
 import json
 from datetime import timedelta
 import re
+import textwrap
 
 
 class History:
@@ -152,10 +153,27 @@ class History:
         # Save new file.
         self.save_history()
 
-    def print(self):
-        """Print the historial."""
+    def get_history_len(self):
+        """Return the number of entries in the history."""
+        return len(self.history["worked_hours"])
+
+    def print(self, **kwargs):
+        """
+        Print the historial.
+
+        Parameters
+        ----------
+        **kwargs:
+
+            query: Array.
+                List of asked indexes for printing.
+
+        """
         # Set table width.
-        n_cols = 5 + 30 * 3 + 5
+        n_cols = 5 + 30 * 2 + 20 * 2 + 6
+
+        # Get asked indexes.
+        query = kwargs.get("query", range(self.get_history_len()))
 
         # Print title.
         print(
@@ -163,16 +181,65 @@ class History:
             "\n - Worked hours: \n"
         )
 
+        # Print table.
         print("-" * n_cols)
         print(
             f"|{'ID'.center(5)}"
             f"|{'Initial Time'.center(30)}"
             f"|{'Final Time'.center(30)}"
-            f"|{'Elapsed Time'.center(30)}|"
+            f"|{'Elapsed Time'.center(20)}"
+            f"|{'Description'.center(20)}|"
         )
         print("-" * n_cols)
 
-        for index in range(len(self.history["worked_hours"])):
+        for index in query:
+            # Get the item.
+            item = self.history["worked_hours"][index]
+
+            # Get the shorten description.
+            desc = textwrap.shorten(item['task'], 20, placeholder='...')
+
+            print(
+                f"|{f'{index}'.center(5)}"
+                f"|{item['init_time'].center(30)}"
+                f"|{item['final_time'].center(30)}"
+                f"|{item['elapsed_time'].center(20)}"
+                f"|{desc.center(20)}|"
+            )
+            print("-" * n_cols)
+
+        print(f"\n - Total time worked: {self.total_time_worked}\n")
+
+    def print_descriptions(self, **kwargs):
+        """
+        Print the descriptions of the given indexes.
+
+        Parameters
+        ----------
+        **kwargs:
+
+            query: Array.
+                List of asked indexes for printing.
+
+        """
+        # Set table width.
+        n_cols = 5 + 30 * 2 + 20 + 5
+        n_spaces = n_cols - 2
+
+        # Get asked indexes.
+        query = kwargs.get("query", range(self.get_history_len()))
+
+        # Print table.
+        print("-" * n_cols)
+        print(
+            f"|{'ID'.center(5)}"
+            f"|{'Initial Time'.center(30)}"
+            f"|{'Final Time'.center(30)}"
+            f"|{'Elapsed Time'.center(20)}|"
+        )
+        print("-" * n_cols)
+
+        for index in query:
             # Get the item.
             item = self.history["worked_hours"][index]
 
@@ -180,8 +247,13 @@ class History:
                 f"|{f'{index}'.center(5)}"
                 f"|{item['init_time'].center(30)}"
                 f"|{item['final_time'].center(30)}"
-                f"|{item['elapsed_time'].center(30)}|"
+                f"|{item['elapsed_time'].center(20)}|"
             )
             print("-" * n_cols)
+            print("|" + (" " * n_spaces) + "|")
 
-        print(f"\n - Total time worked: {self.total_time_worked}")
+            for desc_row in textwrap.wrap(item["task"], n_spaces):
+                print(f"|{desc_row.center(n_spaces)}|")
+
+            print("|" + (" " * n_spaces) + "|")
+            print("-" * n_cols)

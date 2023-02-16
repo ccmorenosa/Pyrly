@@ -16,6 +16,11 @@ class Stopwatch:
         # Get initial time.
         self.init_time = datetime.now()
 
+        print(
+            "\nInitiating stopwatch\n"
+            "(Type Ctrl+C/Ctrl+D to stop)\n"
+        )
+
         # Catch Ctrl+c command.
         try:
 
@@ -49,6 +54,6 @@ class Stopwatch:
 
         # Print elapsed time.
         print(
-            f">>> Time Worked: {(elapsed_time)}", end=end
+            f"Time Worked: {(elapsed_time)}", end=end
         )
         return elapsed_time
