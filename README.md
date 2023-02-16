@@ -1,4 +1,4 @@
-# Pretty Verbose
+# Pyrly
 [![PyPI version](https://img.shields.io/pypi/v/pyrly.svg)](https://pypi.org/project/pyrly/)
 [![License](https://img.shields.io/pypi/l/pyrly.svg)](https://github.com/ccmorenosa/Pyrly/blob/main/LICENSE)
 [![Test Python Package](https://github.com/ccmorenosa/Pyrly/actions/workflows/test-python.yml/badge.svg?branch=main)](https://github.com/ccmorenosa/Pyrly/actions/workflows/test-python.yml)
