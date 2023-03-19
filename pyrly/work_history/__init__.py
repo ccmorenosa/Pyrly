@@ -157,6 +157,26 @@ class History:
         """Return the number of entries in the history."""
         return len(self.history["worked_hours"])
 
+    def get_total_time_worked(self, query):
+        """
+        Return the total work time according to the query.
+
+        Parameters
+        ----------
+        query: Array.
+            List of asked indexes for printing.
+
+        """
+        total_time = timedelta()
+
+        for index in query:
+            # Get the item.
+            item = self.history["worked_hours"][index]
+
+            total_time += self.parse_timedelta(item['elapsed_time'])
+
+        return total_time
+
     def print(self, **kwargs):
         """
         Print the historial.
@@ -208,7 +228,7 @@ class History:
             )
             print("-" * n_cols)
 
-        print(f"\n - Total time worked: {self.total_time_worked}\n")
+        print(f"\n - Total time worked: {self.get_total_time_worked(query)}\n")
 
     def print_descriptions(self, **kwargs):
         """
@@ -257,3 +277,5 @@ class History:
 
             print("|" + (" " * n_spaces) + "|")
             print("-" * n_cols)
+
+        print(f"\n - Total time worked: {self.get_total_time_worked(query)}\n")
