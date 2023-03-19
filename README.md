@@ -21,5 +21,5 @@ python3 -m pip install pyrly
 To use the admin run.
 
 ```shell
-pyrly
+pyrly-work
 ```
