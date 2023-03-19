@@ -1,4 +1,4 @@
-"""Setup file for utils package for shared functions and classes."""
+"""Setup file for Pyrly package."""
 from setuptools import setup
 
 setup()
