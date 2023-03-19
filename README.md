@@ -9,7 +9,8 @@ Package for administrating worked hours.
 
 ## Installation
 
-The package is available in the [Python Package Index (PyPi)](https://pypi.org/project/pyrly/).
+The package is available in the
+[Python Package Index (PyPi)](https://pypi.org/project/pyrly/).
 
 ```bash
 python3 -m pip install pyrly
